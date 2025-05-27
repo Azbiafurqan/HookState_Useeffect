@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useState,useEffect } from 'react'
 
-function App() {
+export default function App() {
+  const[data,setdata] = useState([]);
+  useEffect(()=>
+  {
+    fetch(fetch('https://dummyjson.com/products').then(res => res.json ()).then(json => setdata(json.products)))
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      {
+        data.map((item)=>
+        (
+          <h1 key={item.id}>{item.title}</h1>
+        ))
+      }
+    </>
+  )
 }
-
-export default App;
